@@ -1,0 +1,4 @@
+  File "/Users/nemesis/llamaneuro/TransformerX/server/app.py", line 34
+    HAS_FLASK = Trueexcept ImportError:
+                           ^^^^^^^^^^^
+SyntaxError: invalid syntax

@@ -1,0 +1,25 @@
+# Basic server requirements
+Flask>=2.2.3
+Flask-CORS>=3.0.10
+
+# Neural processing
+numpy>=1.22.4
+scipy>=1.10.1
+matplotlib>=3.7.1
+pandas>=1.5.3
+
+# Deep learning - optional but recommended
+# commented by default to reduce installation size
+# torch>=2.0.0
+# transformers>=4.30.2
+
+# EEG processing - optional but recommended
+# commented by default as these can be tricky to install
+# mne>=1.3.1
+# pyedflib>=0.1.30
+
+# Utilities
+pytest>=7.3.1  # For testing
+python-dotenv>=1.0.0
+tqdm>=4.65.0
+requests>=2.28.2 

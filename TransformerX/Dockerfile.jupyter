@@ -1,0 +1,50 @@
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    curl \
+    git \
+    vim \
+    procps \
+    htop \
+    graphviz \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements
+COPY server/requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install Jupyter and scientific libraries
+RUN pip install --no-cache-dir \
+    jupyterlab \
+    notebook \
+    ipywidgets \
+    matplotlib \
+    seaborn \
+    pandas \
+    scikit-learn \
+    plotly \
+    ipython \
+    mne \
+    torch \
+    torchvision \
+    torchaudio \
+    transformers
+
+# Create necessary directories
+RUN mkdir -p logs models notebooks
+
+# Set environment variables
+ENV PYTHONPATH=/app
+ENV JUPYTER_ENABLE_LAB=yes
+
+# Expose port for Jupyter
+EXPOSE 8888
+
+# Command to run Jupyter Lab
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--NotebookApp.token=transformerx"] 

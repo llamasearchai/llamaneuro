@@ -1,0 +1,54 @@
+{
+  "server": {
+    "host": "0.0.0.0",
+    "port": 8080,
+    "debug": false,
+    "dashboard_dir": "../dashboard",
+    "logs_dir": "../logs",
+    "api_prefix": "/api/v1"
+  },
+  "neuro_processor": {
+    "active": true,
+    "use_simulated_data": true,
+    "sampling_rate": 250,
+    "buffer_duration": 4.0,
+    "electrode_names": [
+      "Fp1", "Fp2", "F7", "F3", "Fz", "F4", "F8", 
+      "T3", "C3", "Cz", "C4", "T4", 
+      "T5", "P3", "Pz", "P4", "T6", 
+      "O1", "O2"
+    ],
+    "frequency_bands": {
+      "delta": [0.5, 4],
+      "theta": [4, 8],
+      "alpha": [8, 13],
+      "beta": [13, 30],
+      "gamma": [30, 100]
+    },
+    "model_paths": {
+      "transformer": "./models/eeg_transformer.pt",
+      "classifier": "./models/motor_imagery_classifier.pt"
+    },
+    "classes": ["left_hand", "right_hand", "feet", "tongue", "rest"],
+    "confidence_threshold": 0.6,
+    "update_interval": 0.1
+  },
+  "llama_interface": {
+    "active": true,
+    "model_path": "./models/llama_weights",
+    "use_quantization": true,
+    "context_length": 2048,
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "repetition_penalty": 1.1,
+    "num_beams": 1,
+    "neural_guidance_strength": 0.5,
+    "semantic_mapping": {
+      "left_hand": ["move", "change", "shift", "select"],
+      "right_hand": ["create", "add", "increase", "new"],
+      "feet": ["stop", "pause", "halt", "reduce"],
+      "tongue": ["confirm", "accept", "approve", "yes"],
+      "rest": ["neutral", "wait", "standby", "idle"]
+    }
+  }
+} 

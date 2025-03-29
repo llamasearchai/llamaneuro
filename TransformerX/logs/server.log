@@ -1,0 +1,44 @@
+2025-03-15 07:30:24,751 - utils.config - INFO - Using default configuration
+2025-03-15 07:30:37,317 - neuro_processor.feature_extraction - WARNING - MNE not available, connectivity features will be limited
+2025-03-15 07:30:37,319 - neuro_processor.transformers - WARNING - PyTorch not available, transformer models will be limited
+2025-03-15 07:30:37,320 - neuro_processor.processor - WARNING - PyTorch not available, using dummy classifier
+2025-03-15 07:30:37,323 - llama_interface.llama_model - WARNING - Transformers library not available, LLaMA interface will be limited
+2025-03-15 07:30:37,326 - neuro_processor.transformers - WARNING - TransformerEncoder initialized without PyTorch - functionality will be limited
+2025-03-15 07:30:37,326 - neuro_processor.processor - INFO - Transformer model initialized
+2025-03-15 07:30:37,327 - neuro_processor.processor - WARNING - Using dummy classifier (PyTorch not available)
+2025-03-15 07:30:37,327 - llama_interface.llama_model - ERROR - Transformers library not available
+2025-03-15 07:30:37,330 - api.routes - INFO - API routes initialized with prefix: /api/v1
+2025-03-15 07:30:37,331 - __main__ - INFO - Starting TransformerX Server on http://0.0.0.0:8081
+2025-03-15 07:30:37,331 - __main__ - INFO - Dashboard available at http://0.0.0.0:8081
+2025-03-15 07:30:37,331 - __main__ - INFO - API available at http://0.0.0.0:8081/api/v1
+2025-03-15 07:30:37,346 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8081
+ * Running on http://10.6.4.117:8081
+2025-03-15 07:30:37,346 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 07:30:39,336 - __main__ - INFO - Starting Neural Processor...
+2025-03-15 07:30:39,336 - neuro_processor.processor - INFO - Neural processor started
+2025-03-15 07:30:39,336 - __main__ - INFO - Starting LLaMA Interface...
+2025-03-15 07:30:39,337 - llama_interface.llama_model - ERROR - Transformers library not available
+2025-03-15 07:32:09,412 - utils.config - INFO - Using default configuration
+2025-03-15 07:32:09,696 - neuro_processor.feature_extraction - WARNING - MNE not available, connectivity features will be limited
+2025-03-15 07:32:09,696 - neuro_processor.transformers - WARNING - PyTorch not available, transformer models will be limited
+2025-03-15 07:32:09,697 - neuro_processor.processor - WARNING - PyTorch not available, using dummy classifier
+2025-03-15 07:32:09,697 - llama_interface.llama_model - WARNING - Transformers library not available, LLaMA interface will be limited
+2025-03-15 07:32:09,698 - neuro_processor.transformers - WARNING - TransformerEncoder initialized without PyTorch - functionality will be limited
+2025-03-15 07:32:09,698 - neuro_processor.processor - INFO - Transformer model initialized
+2025-03-15 07:32:09,698 - neuro_processor.processor - WARNING - Using dummy classifier (PyTorch not available)
+2025-03-15 07:32:09,698 - llama_interface.llama_model - ERROR - Transformers library not available
+2025-03-15 07:32:09,701 - api.routes - INFO - API routes initialized with prefix: /api/v1
+2025-03-15 07:32:09,701 - __main__ - INFO - Starting TransformerX Server on http://0.0.0.0:8081
+2025-03-15 07:32:09,701 - __main__ - INFO - Dashboard available at http://0.0.0.0:8081
+2025-03-15 07:32:09,701 - __main__ - INFO - API available at http://0.0.0.0:8081/api/v1
+2025-03-15 07:32:09,708 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8081
+ * Running on http://10.6.4.117:8081
+2025-03-15 07:32:09,708 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-15 07:32:11,706 - __main__ - INFO - Starting Neural Processor...
+2025-03-15 07:32:11,707 - neuro_processor.processor - INFO - Neural processor started
+2025-03-15 07:32:11,707 - __main__ - INFO - Starting LLaMA Interface...
+2025-03-15 07:32:11,707 - llama_interface.llama_model - ERROR - Transformers library not available

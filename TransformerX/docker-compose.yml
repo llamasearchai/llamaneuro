@@ -1,0 +1,152 @@
+version: '3.8'
+
+services:
+  # Production server
+  transformerx:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: transformerx:latest
+    ports:
+      - "${PORT:-8080}:8080"
+    volumes:
+      - ./models:/app/models
+      - ./logs:/app/logs
+      - ./server/config:/app/server/config
+    environment:
+      - DEBUG=${DEBUG:-false}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - PORT=8080
+      - HOST=0.0.0.0
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/v1/status"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    restart: unless-stopped
+    networks:
+      - transformerx-network
+
+  # Development server
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: transformerx:dev
+    ports:
+      - "${DEV_PORT:-8081}:8080"
+    volumes:
+      - .:/app
+    environment:
+      - DEBUG=true
+      - LOG_LEVEL=debug
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+      - PORT=8080
+      - HOST=0.0.0.0
+    entrypoint: /app/docker-entrypoint.sh
+    restart: unless-stopped
+    networks:
+      - transformerx-network
+
+  # Dashboard web interface
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.dashboard
+    image: transformerx:dashboard
+    ports:
+      - "${DASHBOARD_PORT:-3000}:80"
+    environment:
+      - API_URL=http://transformerx:8080
+      - DASHBOARD_THEME=${DASHBOARD_THEME:-light}
+      - EEG_VIEW_DURATION=${EEG_VIEW_DURATION:-5}
+      - MAX_FREQUENCY=${MAX_FREQUENCY:-60}
+      - DEMO_MODE=${DEMO_MODE:-false}
+      - USE_SIMULATED_DATA=${USE_SIMULATED_DATA:-true}
+    depends_on:
+      transformerx:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - transformerx-network
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:80/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+  # Simple dashboard (fallback)
+  simple-dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: transformerx:dev
+    ports:
+      - "${SIMPLE_DASHBOARD_PORT:-3001}:3000"
+    volumes:
+      - ./dashboard:/app/dashboard
+    working_dir: /app/dashboard
+    command: >
+      bash -c "python -m http.server 3000 || 
+      (echo 'Port 3000 already in use, trying alternate port 3001' && 
+      python -m http.server 3001)"
+    environment:
+      - API_URL=http://transformerx:8080
+    depends_on:
+      transformerx:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - transformerx-network
+
+  # Jupyter notebook
+  notebook:
+    build:
+      context: .
+      dockerfile: Dockerfile.jupyter
+    image: transformerx:jupyter
+    ports:
+      - "${NOTEBOOK_PORT:-8888}:8888"
+    volumes:
+      - .:/app
+      - ./notebooks:/app/notebooks
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+    command: >
+      jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root 
+      --NotebookApp.token='transformerx' --NotebookApp.notebook_dir='/app/notebooks'
+    networks:
+      - transformerx-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888/api/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Test runner
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: transformerx:dev
+    volumes:
+      - .:/app
+    command: tox
+    environment:
+      - PYTHONPATH=/app
+    networks:
+      - transformerx-network
+
+# Define volumes
+volumes:
+  models:
+  logs:
+
+# Define networks
+networks:
+  transformerx-network:
+    driver: bridge 

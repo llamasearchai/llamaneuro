@@ -1,0 +1,27 @@
+FROM nginx:alpine
+
+WORKDIR /usr/share/nginx/html
+
+# Copy the dashboard files
+COPY dashboard/ .
+
+# Copy custom nginx configuration
+COPY scripts/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Dashboard config file with environment variable substitution
+COPY scripts/config.template.js /tmp/
+
+# Set up entrypoint to substitute environment variables in config file
+RUN echo '#!/bin/sh \n\
+envsubst < /tmp/config.template.js > /usr/share/nginx/html/js/config.js \n\
+exec nginx -g "daemon off;"' > /docker-entrypoint.sh \
+    && chmod +x /docker-entrypoint.sh
+
+# Expose port
+EXPOSE 80
+
+# Healthcheck
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+    CMD wget -q --spider http://localhost:80/ || exit 1
+
+ENTRYPOINT ["/docker-entrypoint.sh"] 
