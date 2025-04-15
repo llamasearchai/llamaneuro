@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransformerX Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon"><i class="fas fa-brain"></i></span>
+                    <h1>TransformerX</h1>
+                </div>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="#dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#models"><i class="fas fa-cube"></i> Models</a></li>
+                    <li><a href="#training"><i class="fas fa-dumbbell"></i> Training</a></li>
+                    <li><a href="#evaluation"><i class="fas fa-chart-line"></i> Evaluation</a></li>
+                    <li><a href="#experiments"><i class="fas fa-flask"></i> Experiments</a></li>
+                    <li><a href="#datasets"><i class="fas fa-database"></i> Datasets</a></li>
+                    <li><a href="#deployment"><i class="fas fa-rocket"></i> Deployment</a></li>
+                    <li><a href="#settings"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <p class="user-name">AI Researcher</p>
+                        <p class="user-role">Admin</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search models, experiments, datasets...">
+                </div>
+                <div class="top-bar-actions">
+                    <button class="action-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </button>
+                    <button class="action-btn">
+                        <i class="fas fa-envelope"></i>
+                        <span class="badge">5</span>
+                    </button>
+                    <div class="theme-toggle">
+                        <input type="checkbox" id="theme-switch" class="theme-switch">
+                        <label for="theme-switch" class="theme-switch-label">
+                            <i class="fas fa-sun"></i>
+                            <i class="fas fa-moon"></i>
+                            <span class="switch-ball"></span>
+                        </label>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-container">
+                <div class="page-header">
+                    <h2>Dashboard</h2>
+                    <p class="timestamp">Last updated: <span id="last-updated">Just now</span></p>
+                </div>
+
+                <!-- Three.js Network Visualization -->
+                <div class="card visualization-card">
+                    <div class="card-header">
+                        <h3>Multi-Modal Transformer Architecture</h3>
+                        <div class="card-actions">
+                            <button class="btn-icon" id="fullscreen-btn"><i class="fas fa-expand"></i></button>
+                            <div class="dropdown">
+                                <button class="btn-icon dropdown-toggle"><i class="fas fa-ellipsis-v"></i></button>
+                                <div class="dropdown-menu">
+                                    <a href="#"><i class="fas fa-download"></i> Export as PNG</a>
+                                    <a href="#"><i class="fas fa-sync"></i> Reset View</a>
+                                    <a href="#"><i class="fas fa-info-circle"></i> Visualization Help</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="network-visualization"></div>
+                        <div class="visualization-controls">
+                            <div class="control-group">
+                                <label for="layer-visibility">Layers:</label>
+                                <select id="layer-visibility">
+                                    <option value="all">All Layers</option>
+                                    <option value="attention">Attention Only</option>
+                                    <option value="encoder">Encoder Blocks</option>
+                                    <option value="decoder">Decoder Blocks</option>
+                                </select>
+                            </div>
+                            <div class="control-group">
+                                <label for="animation-speed">Animation Speed:</label>
+                                <input type="range" id="animation-speed" min="0" max="2" step="0.1" value="1">
+                            </div>
+                            <div class="control-group">
+                                <button class="btn-small btn-primary" id="play-animation">
+                                    <i class="fas fa-play"></i> Play Animation
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Metrics and Status Widgets Row -->
+                <div class="metrics-grid">
+                    <div class="card metric-card">
+                        <div class="metric-icon green">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h4>Active Models</h4>
+                            <div class="metric-value">12</div>
+                            <div class="metric-change positive">
+                                <i class="fas fa-arrow-up"></i> +3 last week
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="metric-icon blue">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h4>Training Jobs</h4>
+                            <div class="metric-value">3</div>
+                            <div class="metric-change neutral">
+                                <i class="fas fa-minus"></i> No change
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="metric-icon purple">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h4>GPU Utilization</h4>
+                            <div class="metric-value">78%</div>
+                            <div class="metric-change negative">
+                                <i class="fas fa-arrow-down"></i> -5% last hour
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="metric-icon orange">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="metric-content">
+                            <h4>Avg. Inference Time</h4>
+                            <div class="metric-value">42ms</div>
+                            <div class="metric-change positive">
+                                <i class="fas fa-arrow-down"></i> -12ms improvement
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Training Metrics and Performance -->
+                <div class="twin-cards">
+                    <div class="card performance-card">
+                        <div class="card-header">
+                            <h3>Training Performance</h3>
+                            <div class="model-selector">
+                                <select id="model-performance-select">
+                                    <option value="model1">TransformerX-Large</option>
+                                    <option value="model2">TransformerX-Base</option>
+                                    <option value="model3">MultiModal-Fusion</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="performance-metrics">
+                                <div class="metric-tabs">
+                                    <button class="tab-btn active" data-metric="loss">Loss</button>
+                                    <button class="tab-btn" data-metric="accuracy">Accuracy</button>
+                                    <button class="tab-btn" data-metric="f1">F1 Score</button>
+                                </div>
+                                <div class="chart-container">
+                                    <canvas id="performance-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card attention-vis-card">
+                        <div class="card-header">
+                            <h3>Attention Visualization</h3>
+                            <div class="head-selector">
+                                <label>Attention Head:</label>
+                                <select id="attention-head-select">
+                                    <option value="head1">Head 1</option>
+                                    <option value="head2">Head 2</option>
+                                    <option value="head3">Head 3</option>
+                                    <option value="head4">Head 4</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="attention-visualization"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Neural Decoder Visualization -->
+                <div class="card decoder-card">
+                    <div class="card-header">
+                        <h3>Neural-to-Movement Decoder</h3>
+                        <div class="decoder-controls">
+                            <div class="control-group">
+                                <label for="decoder-model-select">Model:</label>
+                                <select id="decoder-model-select">
+                                    <option value="model1">TransformerX-Decoder</option>
+                                    <option value="model2">RNN-Decoder</option>
+                                    <option value="model3">Transformer-Hybrid</option>
+                                </select>
+                            </div>
+                            <div class="control-group">
+                                <label for="trajectory-type-selector">Trajectory:</label>
+                                <select id="trajectory-type-selector">
+                                    <option value="circular">Circular</option>
+                                    <option value="figure8">Figure-8</option>
+                                    <option value="reaching">Center-Out Reaching</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="decoder-grid">
+                            <div class="decoder-visualization-container">
+                                <h4>Trajectory Visualization</h4>
+                                <div id="trajectory-visualization"></div>
+                                
+                                <!-- Add motor imagery indicator section -->
+                                <div class="motor-imagery-indicator" id="motor-imagery-indicator">
+                                    <div class="motor-imagery-class" data-class="Left Hand">
+                                        <span class="direction-icon"><i class="fas fa-arrow-left"></i></span>
+                                        <span>Left Hand</span>
+                                    </div>
+                                    <div class="motor-imagery-class" data-class="Right Hand">
+                                        <span class="direction-icon"><i class="fas fa-arrow-right"></i></span>
+                                        <span>Right Hand</span>
+                                    </div>
+                                    <div class="motor-imagery-class" data-class="Feet">
+                                        <span class="direction-icon"><i class="fas fa-arrow-down"></i></span>
+                                        <span>Feet</span>
+                                    </div>
+                                    <div class="motor-imagery-class" data-class="Tongue">
+                                        <span class="direction-icon"><i class="fas fa-arrow-up"></i></span>
+                                        <span>Tongue</span>
+                                    </div>
+                                    <div class="motor-imagery-class" data-class="Rest">
+                                        <span class="direction-icon"><i class="fas fa-circle"></i></span>
+                                        <span>Rest</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Add processor connection status -->
+                                <div class="processor-connection">
+                                    <span class="connection-indicator" id="processor-connection-indicator"></span>
+                                    <span id="processor-connection-text">Neural Processor: Not Connected</span>
+                                </div>
+                            </div>
+                            <div class="decoder-metrics-container">
+                                <h4>Decoder Performance</h4>
+                                <div class="decoder-metrics-grid">
+                                    <div class="metric-box">
+                                        <div class="metric-label">Accuracy</div>
+                                        <div id="decoder-accuracy" class="metric-value">85.0%</div>
+                                    </div>
+                                    <div class="metric-box">
+                                        <div class="metric-label">MSE</div>
+                                        <div id="decoder-mse" class="metric-value">0.025</div>
+                                    </div>
+                                    <div class="metric-box">
+                                        <div class="metric-label">R² Score</div>
+                                        <div id="decoder-r2" class="metric-value">0.78</div>
+                                    </div>
+                                    <div class="metric-box">
+                                        <div class="metric-label">Correlation</div>
+                                        <div id="decoder-correlation" class="metric-value">0.89</div>
+                                    </div>
+                                    <div class="metric-box">
+                                        <div class="metric-label">Decode Time</div>
+                                        <div id="decoder-decode-time" class="metric-value">5.2 ms</div>
+                                    </div>
+                                    <div class="metric-box">
+                                        <div class="metric-label">Bit Rate</div>
+                                        <div id="decoder-bitrate" class="metric-value">128.4 bits/s</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="decoder-charts-container">
+                                <div class="decoder-chart-wrapper">
+                                    <h4>Movement Over Time</h4>
+                                    <div id="movement-over-time"></div>
+                                </div>
+                                <div class="decoder-chart-wrapper">
+                                    <h4>Velocity Profile</h4>
+                                    <div id="velocity-visualization"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BCI Status Monitor -->
+                <div class="card bci-card">
+                    <div class="card-header">
+                        <h3>Brain-Computer Interface Status</h3>
+                        <div class="controls">
+                            <button id="run-impedance-check" class="btn-small">Check Impedance</button>
+                            <button id="bci-connect-btn" class="btn-small btn-danger">Disconnect</button>
+                            <button id="export-bci"><i class="fas fa-download"></i></button>
+                            <button id="fullscreen-bci"><i class="fas fa-expand"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="bci-grid">
+                        <div class="bci-status-panel">
+                            <div class="status-item">
+                                <div class="status-label">Connection:</div>
+                                <div class="status-value">
+                                    <span id="connection-status" class="status-indicator status-good"></span>
+                                    <span id="connection-text">Connected</span>
+                                </div>
+                            </div>
+                            
+                            <div class="status-item">
+                                <div class="status-label">Recording Time:</div>
+                                <div class="status-value" id="recording-time">00:00:00</div>
+                            </div>
+                            
+                            <div class="status-item">
+                                <div class="status-label">Sample Rate:</div>
+                                <div class="status-value" id="sample-rate">1000 Hz</div>
+                            </div>
+                            
+                            <div class="status-item">
+                                <div class="status-label">Battery:</div>
+                                <div class="status-value battery-section">
+                                    <span class="battery-icon"><i class="fas fa-battery-three-quarters"></i></span>
+                                    <span id="battery-level">87%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="status-item">
+                                <div class="status-label">Storage Used:</div>
+                                <div class="status-value" id="storage-used">42%</div>
+                            </div>
+                            
+                            <div class="progress-container">
+                                <div id="bci-progress" class="progress-bar"></div>
+                            </div>
+                            
+                            <div id="bci-notifications" class="notifications-area"></div>
+                        </div>
+                        
+                        <div class="bci-charts">
+                            <div class="chart-container">
+                                <h4>Impedance Values (kΩ)</h4>
+                                <div id="impedance-chart" class="chart-wrapper"></div>
+                            </div>
+                            
+                            <div class="chart-container">
+                                <h4>Signal Quality</h4>
+                                <div id="signal-quality-chart" class="chart-wrapper"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="bci-electrode-table">
+                            <h4>Electrode Status</h4>
+                            <div class="table-wrapper">
+                                <table id="electrode-status">
+                                    <tr>
+                                        <th>Channel</th>
+                                        <th>Impedance</th>
+                                        <th>Signal</th>
+                                        <th>Status</th>
+                                    </tr>
+                                    <!-- Electrode data will be populated by JavaScript -->
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Neural Signal Processor Section -->
+                <div class="card neural-processor-card" id="neural-processor-section">
+                    <div class="card-header">
+                        <h3>Neural Signal Processor</h3>
+                        <div class="controls">
+                            <span class="status-indicator-container">
+                                <span id="processor-status-indicator" class="status-indicator status-inactive"></span>
+                                <span id="processor-status-text">Inactive</span>
+                            </span>
+                            <button id="processor-start-btn" class="btn-small btn-primary"><i class="fas fa-play"></i> Start</button>
+                            <button id="processor-stop-btn" class="btn-small"><i class="fas fa-stop"></i> Stop</button>
+                            <button id="processor-reset-btn" class="btn-small"><i class="fas fa-redo"></i> Reset</button>
+                            <button id="processor-export-btn" class="btn-icon"><i class="fas fa-download"></i></button>
+                            <button id="processor-fullscreen-btn" class="btn-icon"><i class="fas fa-expand"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="neural-processor-grid">
+                        <!-- Classification Results Panel -->
+                        <div class="processor-results-panel">
+                            <div class="result-panel-header">
+                                <h4>Classification Results</h4>
+                            </div>
+                            <div class="classification-result-container">
+                                <div class="result-label">Motor Imagery Class:</div>
+                                <div class="result-value" id="classification-result">Idle</div>
+                                
+                                <div class="result-label">Confidence:</div>
+                                <div class="confidence-bar-container">
+                                    <div class="confidence-bar" id="confidence-bar" style="width: 0%">
+                                        <span id="confidence-value">0%</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="result-label">Active Electrodes:</div>
+                                <ul class="active-electrodes-list" id="active-electrodes">
+                                    <li>C3</li>
+                                    <li>C4</li>
+                                    <li>Cz</li>
+                                    <li>Fz</li>
+                                    <li>Pz</li>
+                                    <li>P3</li>
+                                    <li>P4</li>
+                                    <li>O1</li>
+                                    <li>O2</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="model-config">
+                                <div class="config-header">
+                                    <h4>Model Configuration</h4>
+                                </div>
+                                <div class="config-options">
+                                    <div class="config-item">
+                                        <label for="embedding-dim">Embedding Dim:</label>
+                                        <select id="embedding-dim">
+                                            <option value="32">32</option>
+                                            <option value="64" selected>64</option>
+                                            <option value="128">128</option>
+                                        </select>
+                                    </div>
+                                    <div class="config-item">
+                                        <label for="attention-heads">Attention Heads:</label>
+                                        <select id="attention-heads">
+                                            <option value="2">2</option>
+                                            <option value="4">4</option>
+                                            <option value="8" selected>8</option>
+                                        </select>
+                                    </div>
+                                    <div class="config-item">
+                                        <label for="transformer-layers">Transformer Layers:</label>
+                                        <select id="transformer-layers">
+                                            <option value="1">1</option>
+                                            <option value="2" selected>2</option>
+                                            <option value="4">4</option>
+                                        </select>
+                                    </div>
+                                    <div class="config-item">
+                                        <label for="kalman-filter">Kalman Filtering:</label>
+                                        <input type="checkbox" id="kalman-filter" checked>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Visualization Panels -->
+                        <div class="processor-visualizations">
+                            <div class="visualization-panel">
+                                <h4>Frequency Band Powers</h4>
+                                <canvas id="frequency-band-chart"></canvas>
+                            </div>
+                            
+                            <div class="visualization-panel">
+                                <h4>Decoded Output</h4>
+                                <canvas id="decoded-output-chart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <!-- Attention Visualization -->
+                        <div class="attention-visualization-panel">
+                            <h4>Transformer Attention Weights</h4>
+                            <div class="attention-selector">
+                                <label for="attention-layer-select">Layer:</label>
+                                <select id="attention-layer-select">
+                                    <option value="0">Layer 1</option>
+                                    <option value="1">Layer 2</option>
+                                </select>
+                            </div>
+                            <canvas id="attention-heatmap"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NeuroLLaMA Interface Section -->
+                <div class="card neuro-llama-card" id="neuro-llama-container">
+                    <div class="card-header">
+                        <h3>NeuroLLaMA Interface</h3>
+                        <div class="controls">
+                            <div class="connection-status disconnected" id="llama-connection-status">
+                                <i class="fas fa-times-circle"></i>
+                                <span>Disconnected</span>
+                            </div>
+                            <button id="llama-toggle-neural" class="btn-small"><i class="fas fa-brain"></i> Neural Guidance: OFF</button>
+                            <button id="llama-export-btn" class="btn-icon"><i class="fas fa-download"></i></button>
+                            <button id="llama-fullscreen-btn" class="btn-icon"><i class="fas fa-expand"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="neuro-llama-grid">
+                        <!-- Conversation Interface -->
+                        <div class="llama-conversation-panel">
+                            <div class="llama-output-container">
+                                <div id="llama-output-area" class="llama-output-area"></div>
+                                <div id="llama-loading" class="llama-loading">
+                                    <div class="loading-spinner"></div>
+                                    <span>Thinking...</span>
+                                </div>
+                            </div>
+                            <div class="llama-input-container">
+                                <textarea id="llama-prompt-input" placeholder="Type your message here or use neural input..."></textarea>
+                                <div class="llama-input-buttons">
+                                    <button id="llama-clear-button" class="btn-small"><i class="fas fa-trash-alt"></i></button>
+                                    <button id="llama-send-button" class="btn-small btn-primary"><i class="fas fa-paper-plane"></i> Send</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Neural Concepts and Action Mapping Panel -->
+                        <div class="llama-neural-panel">
+                            <div class="llama-model-controls">
+                                <div class="model-setting">
+                                    <label for="llama-model-selector">Model:</label>
+                                    <select id="llama-model-selector">
+                                        <option value="llama-neuro-7b">LLaMA-Neuro-7B</option>
+                                        <option value="llama-neuro-13b">LLaMA-Neuro-13B</option>
+                                        <option value="llama-neuro-70b">LLaMA-Neuro-70B</option>
+                                    </select>
+                                </div>
+                                <div class="model-setting">
+                                    <label for="llama-temp-slider">Temperature: <span id="llama-temp-value">0.7</span></label>
+                                    <input type="range" id="llama-temp-slider" min="0.1" max="1.5" step="0.1" value="0.7">
+                                </div>
+                            </div>
+                            
+                            <div id="neural-concept-panel" class="concept-panel">
+                                <div class="concept-header">
+                                    <h4>Active Neural Concepts</h4>
+                                    <span class="confidence-pill">0%</span>
+                                </div>
+                                <div class="active-class">
+                                    <span class="class-label">Class:</span> 
+                                    <span class="class-value">None</span>
+                                </div>
+                                <div class="concept-list">
+                                    <div class="concept-tag" style="opacity: 0.5">
+                                        neutral
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="action-state-panel" class="action-state-panel">
+                                <h4>Neural Action States</h4>
+                                <div class="action-state">
+                                    <div class="action-header">
+                                        <span class="action-name">navigate</span>
+                                        <span class="action-confidence">0%</span>
+                                    </div>
+                                    <div class="action-progress">
+                                        <div class="action-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div class="action-state">
+                                    <div class="action-header">
+                                        <span class="action-name">select</span>
+                                        <span class="action-confidence">0%</span>
+                                    </div>
+                                    <div class="action-progress">
+                                        <div class="action-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div class="action-state">
+                                    <div class="action-header">
+                                        <span class="action-name">modify</span>
+                                        <span class="action-confidence">0%</span>
+                                    </div>
+                                    <div class="action-progress">
+                                        <div class="action-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Attention Visualization and Mapping -->
+                        <div class="llama-visualization-panel">
+                            <div class="visualization-header">
+                                <h4>Neural-to-Language Mapping</h4>
+                            </div>
+                            
+                            <div id="neural-mapping-list" class="neural-mapping-list">
+                                <!-- Neural Mapping Items will be inserted by JavaScript -->
+                            </div>
+                            
+                            <div class="attention-visualization">
+                                <h4>Attention Visualization</h4>
+                                <canvas id="llama-attention-viz" width="300" height="150"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Experiments and System Resources -->
+                <div class="twin-cards">
+                    <div class="card experiments-card">
+                        <div class="card-header">
+                            <h3>Recent Experiments</h3>
+                            <button class="btn-small btn-outlined">View All</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="experiment-list">
+                                <div class="experiment-item">
+                                    <div class="experiment-status running"></div>
+                                    <div class="experiment-details">
+                                        <h4>Attention Ablation Study</h4>
+                                        <p>Testing performance impact of various attention mechanisms</p>
+                                        <div class="experiment-meta">
+                                            <span><i class="far fa-clock"></i> Started: 2h 34m ago</span>
+                                            <span><i class="fas fa-server"></i> GPU: 4x A100</span>
+                                        </div>
+                                    </div>
+                                    <div class="experiment-progress">
+                                        <div class="progress-ring">
+                                            <svg width="40" height="40">
+                                                <circle class="progress-ring-circle-bg" cx="20" cy="20" r="15"></circle>
+                                                <circle class="progress-ring-circle" cx="20" cy="20" r="15" style="stroke-dashoffset: calc(94.2477796077 - (94.2477796077 * 65) / 100);"></circle>
+                                                <text class="progress-text" x="20" y="24">65%</text>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="experiment-item">
+                                    <div class="experiment-status completed"></div>
+                                    <div class="experiment-details">
+                                        <h4>Cross-Modal Fusion Optimization</h4>
+                                        <p>Evaluating optimal fusion strategies for image-text inputs</p>
+                                        <div class="experiment-meta">
+                                            <span><i class="far fa-clock"></i> Completed: 1d ago</span>
+                                            <span><i class="fas fa-chart-line"></i> F1: 0.87</span>
+                                        </div>
+                                    </div>
+                                    <div class="experiment-actions">
+                                        <button class="btn-icon"><i class="fas fa-eye"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-download"></i></button>
+                                    </div>
+                                </div>
+                                <div class="experiment-item">
+                                    <div class="experiment-status failed"></div>
+                                    <div class="experiment-details">
+                                        <h4>Low-Resource Language Adaptation</h4>
+                                        <p>Failed due to insufficient memory allocation</p>
+                                        <div class="experiment-meta">
+                                            <span><i class="far fa-clock"></i> Failed: 6h ago</span>
+                                            <span><i class="fas fa-exclamation-triangle"></i> OOM Error</span>
+                                        </div>
+                                    </div>
+                                    <div class="experiment-actions">
+                                        <button class="btn-icon"><i class="fas fa-redo"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-trash-alt"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card resources-card">
+                        <div class="card-header">
+                            <h3>System Resources</h3>
+                            <select id="refresh-rate">
+                                <option value="5">Auto-refresh: 5s</option>
+                                <option value="10">Auto-refresh: 10s</option>
+                                <option value="30">Auto-refresh: 30s</option>
+                                <option value="0">Manual refresh</option>
+                            </select>
+                        </div>
+                        <div class="card-body">
+                            <div class="resource-metrics">
+                                <div class="resource-metric">
+                                    <div class="resource-info">
+                                        <h4>GPU Memory</h4>
+                                        <div class="resource-value">13.8GB / 16GB</div>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 86%"></div>
+                                    </div>
+                                </div>
+                                <div class="resource-metric">
+                                    <div class="resource-info">
+                                        <h4>CPU Usage</h4>
+                                        <div class="resource-value">48%</div>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 48%"></div>
+                                    </div>
+                                </div>
+                                <div class="resource-metric">
+                                    <div class="resource-info">
+                                        <h4>RAM</h4>
+                                        <div class="resource-value">24.2GB / 64GB</div>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 38%"></div>
+                                    </div>
+                                </div>
+                                <div class="resource-metric">
+                                    <div class="resource-info">
+                                        <h4>Storage</h4>
+                                        <div class="resource-value">438GB / 2TB</div>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 22%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="gpu-info">
+                                <div class="gpu-stats">
+                                    <div class="gpu-item">
+                                        <span class="gpu-name">NVIDIA A100</span>
+                                        <span class="gpu-temp">67°C</span>
+                                        <span class="gpu-util">92%</span>
+                                    </div>
+                                    <div class="gpu-item">
+                                        <span class="gpu-name">NVIDIA A100</span>
+                                        <span class="gpu-temp">64°C</span>
+                                        <span class="gpu-util">88%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Jobs and Recent Activity -->
+                <div class="twin-cards">
+                    <div class="card jobs-card">
+                        <div class="card-header">
+                            <h3>Active Jobs</h3>
+                            <div class="card-header-actions">
+                                <button class="btn-small btn-primary"><i class="fas fa-plus"></i> New Job</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="job-list">
+                                <div class="job-item">
+                                    <div class="job-info">
+                                        <h4>TransformerX-Large Fine-tuning</h4>
+                                        <p class="job-id">JOB-4561</p>
+                                    </div>
+                                    <div class="job-progress">
+                                        <div class="progress-info">
+                                            <span>Epoch 6/10</span>
+                                            <span>60%</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress" style="width: 60%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="job-stats">
+                                        <div class="job-stat">
+                                            <i class="fas fa-clock"></i>
+                                            <span>3h 42m remaining</span>
+                                        </div>
+                                        <div class="job-stat">
+                                            <i class="fas fa-microchip"></i>
+                                            <span>2x GPU</span>
+                                        </div>
+                                    </div>
+                                    <div class="job-actions">
+                                        <button class="btn-icon"><i class="fas fa-pause"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-stop"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-ellipsis-v"></i></button>
+                                    </div>
+                                </div>
+                                <div class="job-item">
+                                    <div class="job-info">
+                                        <h4>Multilingual Encoder Pretraining</h4>
+                                        <p class="job-id">JOB-4558</p>
+                                    </div>
+                                    <div class="job-progress">
+                                        <div class="progress-info">
+                                            <span>Epoch 12/24</span>
+                                            <span>50%</span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div class="progress" style="width: 50%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="job-stats">
+                                        <div class="job-stat">
+                                            <i class="fas fa-clock"></i>
+                                            <span>18h 15m remaining</span>
+                                        </div>
+                                        <div class="job-stat">
+                                            <i class="fas fa-microchip"></i>
+                                            <span>4x GPU</span>
+                                        </div>
+                                    </div>
+                                    <div class="job-actions">
+                                        <button class="btn-icon"><i class="fas fa-pause"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-stop"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-ellipsis-v"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card activity-card">
+                        <div class="card-header">
+                            <h3>Recent Activity</h3>
+                            <button class="btn-small btn-outlined">View All</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="activity-list">
+                                <div class="activity-item">
+                                    <div class="activity-icon model">
+                                        <i class="fas fa-cube"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p><strong>TransformerX-Base</strong> model was deployed to production</p>
+                                        <p class="activity-time">10 minutes ago</p>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon dataset">
+                                        <i class="fas fa-database"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p><strong>COSMOS-1M</strong> dataset processing completed</p>
+                                        <p class="activity-time">1 hour ago</p>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon alert">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p><strong>Alert:</strong> Disk space running low on storage server</p>
+                                        <p class="activity-time">3 hours ago</p>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon experiment">
+                                        <i class="fas fa-flask"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p><strong>Attention Ablation Study</strong> experiment was started</p>
+                                        <p class="activity-time">5 hours ago</p>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon user">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p><strong>AI Researcher</strong> created a new project</p>
+                                        <p class="activity-time">Yesterday</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Load vendor.js first to handle all dependencies -->
+    <script src="js/vendor.js"></script>
+    
+    <!-- Application scripts -->
+    <script src="js/network-visualization.js"></script>
+    <script src="js/metrics-visualization.js"></script>
+    <script src="js/decoder-visualization.js"></script>
+    <script src="js/bci-status.js"></script>
+    <script src="js/neural-signal-processor.js"></script>
+    <script src="js/neuro-llama.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html> 

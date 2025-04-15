@@ -1,0 +1,23 @@
+[0;34m=== TransformerX Verification ===[0m
+Starting verification process...
+[1;33mChecking virtual environment...[0m
+[0;32m✓ Virtual environment exists[0m
+[1;33mChecking Python version...[0m
+Found: Python 3.11.6
+[0;32m✓ Python 3 is available[0m
+[1;33mChecking required directories...[0m
+[0;32m✓ logs directory exists[0m
+[0;32m✓ models directory exists[0m
+[0;32m✓ server directory exists[0m
+[0;32m✓ dashboard directory exists[0m
+[1;33mChecking key files...[0m
+[0;32m✓ server/app.py exists[0m
+[0;32m✓ setup.sh exists[0m
+[0;32m✓ run.sh exists[0m
+[0;34m=== Verification Summary ===[0m
+[0;32mPassed: 9 tests[0m
+[0;32mAll tests passed! TransformerX is ready to use.[0m
+[0;32m=== TransformerX Verification Complete ===[0m
+To start the server: [1;33m./run.sh server[0m
+To start the dashboard: [1;33m./run.sh dashboard[0m
+To run tests: [1;33m./run.sh test[0m
